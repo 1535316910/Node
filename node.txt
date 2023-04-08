@@ -1,0 +1,43 @@
+JavaScript在浏览器中能运行是因为浏览器内置api接口（dom,bom,canvas）
+nodejs是基于v8引擎的JavaScript运行环境，浏览器是JavaScript的前端运行环境，
+node.js是JavaScript的后端运行环境，nodejs无法调用dom和bom等浏览器内置环境
+node.js内置api  fs  path  http   js内置对象  query string
+
+基于express构建web框架    基于electron开发桌面应用  基于restify 快速构建api接口项目
+LTS版本稳定版本  Current新特性尝鲜版
+fs文件模块系统
+fs.redFile() 读取指定文件中的内容  fs.writeFile()写入指定文件中的内容
+
+
+__dirname表示当前文件所处的目录  __dirname+'/file/1.txt'
+
+文件的拼接   fs.appendFile('./file/1.txt',newStr+'\r\n',function(err)
+定义一个数组   const arrNew=[]
+forEach循环以及数组的push存放和replace替换  arrold.forEach(item=>{
+        arrNew.push(item.replace('=',':'))
+    })
+
+path.join()方法  用来将多个路径片段拼接成一个完整的路径字符串  path.join('/a','/b/c','../''./d','e')  ../抵消c
+path.basename()方法，使用path模块来处理路径，将文件名解析出来
+
+http用来创建web服务器的模块，通过http模块提供的http.ceateServer()方法，就能方便把一台普通的电脑，变成web服务器，从而提供web资源服务
+1.导入  const http=require('http')
+ip地址比作电话  点分十进制 a.b.c.d
+localhos:80  80端口默认可以省略的 localhos:80=>localhos
+创建web服务器实例
+const server=http.createServer() 为服务器绑定request事件，监听客户端的请求
+server.on('request',function(req,res){
+    console.log('Someone visit our web server.');
+})
+// 启动服务器
+server.listen(8080,function(){
+    console.log('server running at http://12.0.0.1:8080');
+})
+调用res.setHead()方法，设置content-type响应头，解决中文乱码的问题
+    res.setHeader('Content-Type','text/html;charset=utf-8')
+    //将内容响应给客户端
+    res.end(str)
+
+module.exports对象就是将模块内的成员共享出去，给外界使用
+外界使用require（）方法导入自定义模块时，得到的就是module.exports所指向的对象
+
