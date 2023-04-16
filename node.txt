@@ -41,3 +41,75 @@ server.listen(8080,function(){
 module.exports对象就是将模块内的成员共享出去，给外界使用
 外界使用require（）方法导入自定义模块时，得到的就是module.exports所指向的对象
 
+
+时刻谨记，require（）模块时，得到的永远是module.exports指向的对象   module.exports=exports  原则上一个模块只使用两个其中一个不容易混淆
+npm（ Node package manager）
+npm install =npm i
+npm i xx包名@版本号  npm i moment2.24.0   点分十进制  第一位数字 大版本  第二位数字  功能半年  第三位数字  bug修改版本
+npm init -y 快速创建package.json的文件  只执行一次就行不能有中文
+npm i jquery art-template  art-template 是一个简约、超快的模板引擎。它采用作用域预声明的技术来优化模板渲染速度，
+从而获得接近 JavaScript 极限的运行性能，并且同时支持 NodeJS 和浏览器。在线速度测试。
+npm i 或npm install 这个命令默认安装全部package.json的全部包
+卸载包  npm uninstall 来卸载制定的包
+npm i webpack -D 是将包发布在devDependencies中，默认包是在dependencies中，
+devDependencies和dependencies区别：devDependencies只在开发阶段用到在项目上线后不会用到，dependencies开发和上线都会用到
+npm i nrm -g  安装nrm方便切换镜像源,将nrm安装为全局可用的小工具
+nrm ls  查看全部镜像源
+nrm use taobao  将下包的镜像切换为淘宝镜像
+
+...模块名  是导入自己的模块声明
+npm login 登录npm
+npm publish 发布自己的包
+ npm unpublish 包名 --force  删除已发布这个的包 时效是72个小时内  超过72小时 以后都不能删除了  不要发没意义的包
+
+
+
+Express是基于nodejs平台，极速 开发 极简的web开发框架    web网站 和api接口
+安装nodemon  可以动态监听代码变化 自动重启服务器 
+npm i -g noedemon
+
+路由就是映射关系  express三部分组成  由请求的类型、请求的地址、处理函数组成
+调用express.Router()函数创建路由对象
+
+中间件：本质也是function函数,中间件函数的形参列表中，必须要包含next函数，而路由处理函数中只包含req和res
+将mw注册为全局生效的中间件  app.use(mw)    将mw注册为局部生效的中间件app.get('/',mw,(req,res)
+多个局部中间件  app.get('/',mw1,mw2(req,res)或app.get('/',[mw1,mw2](req,res)
+路由中间件 Router.user(中间件)
+错误级别中间件(err,req,res,next)   错误级别的中间件必须注册在所有路由之后
+
+跨域问题
+1.cors (主流，推荐使用)  有一系列http响应头组成，这些http响应头决定浏览器是否阻止前端js代码跨域获取资源
+ 运行  npm install cors  安装中间件
+ 使用const cors=require('cors') 导入中间件
+ 一定要在路由之前进行调用app.use(cors())
+
+只允许 POST GET DELETE  HEAD 请求
+res.setHeader('Access-Control-Allow-Methods','POST,GET,DELETE,HEAD')
+运行所以的http请求方法
+res.setHeader('Access-Control-Allow-Methods','*')
+2.jsonp(有缺陷支持get请求)
+
+简单请求和预检请求的区别
+简单请求特点：c/s只会发生一次请求   get post heda 都是简单
+预检请求：c/s 会发生两次请求  一次是OPTION预检请求，成功后才会发起真正的请求
+
+ssr server side render  优化eso
+身份认证  鉴权
+服务端渲染推荐使用session认证机制
+前后的分离推荐使用jwt认证机制
+cookie 是存储在用户浏览器中的一段不超过4kb的字符串，它由一个名称（Name）、一个值（Value）和其他几个用于控制cookie有效期、安全性、
+使用范围的可选属性组成,不同网页的有自己不同的cookie,客户端发送请求时，cookie会将未过期的cookie一起发送到服务器,键值对
+
+在express中使用session认证
+安装  npm install express-session 通过app.use  来注册session中间件
+
+jwt 是 json web token，由 header（头部）、payload(有效荷载)、signature（签名）c乃缺
+Header.Payload.Signature   *******.******.********
+客户端收到服务器返回的jwt，通常存储在localStroage和sessionStroage中,推荐 把jwt放在HTTP请求头的Authorization字段中
+Autorization: Bearer <token>
+nodejs中jwt的两个相关包  npm install jsonwebtoken express-jwt   
+jsonwebtoken 用于生成jwt字符串    express-jwt用于将JWT字符串还原成json对象
+Bearer 是解析jwt字符串的
+
+
+
